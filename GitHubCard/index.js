@@ -5,10 +5,9 @@
 axios.get('https://api.github.com/users/Yurimurda')
 .then(response => {
   console.log(response);
-  response.array.forEach(obj => {
-    const newItem = cardCreator(obj);
-    followersArray.appendChild(newItem);
-  });
+  const card = document.querySelector('.cards');
+  const otherCard = cardCreator(response.data);
+  card.appendChild(otherCard);
 })
 .catch(error => {
   console.log("The data was not returned", error);
@@ -69,7 +68,7 @@ axios.get('https://api.github.com/users/Yurimurda')
           user, and adding that card to the DOM.
 */
 
-const followersArray = [axios.get('https://api.github.com/users/Yurimurda')];
+const followersArray = [];
 
 
 
@@ -110,25 +109,32 @@ function cardCreator (obj){
   let location = document.createElement('p');
   let profile = document.createElement('p');
   let link = document.createElement('a');
-  let followers = documents.createElement('p');
-  let following = documents.createElement('p');
+  let followers = document.createElement('p');
+  let following = document.createElement('p');
   let bio = document.createElement('p');
 
   card.appendChild(avatar);
   card.appendChild(info);
-  card.appendChild(name);
-  card.appendChild(userName);
-  card.appendChild(location);
-  card.appendChild(profile);
-  card.appendChild(followers);
-  card.appendChild(following);
-  card.appendChild(bio);
+  info.appendChild(name);
+  info.appendChild(userName);
+  info.appendChild(location);
+  info.appendChild(profile);
+  info.appendChild(link);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
   
 
   card.classList.add('card');
   info.classList.add('card-info');
   name.classList.add('name');
   userName.classList.add('username');
+  location.classList.add('location');
+  profile.classList.add('profile');
+  link.classList.add('link');
+  followers.classList.add('followers');
+  following.classList.add('following');
+  bio.classList.add('bio');
 
 
 
@@ -136,13 +142,13 @@ function cardCreator (obj){
   name.textContent = obj.name;
   userName.textContent = obj.login;
   location.textContent = obj.location;
-  link.href = obj.html_url;
-  followers.textContent = obj.followers_url;
-  following.textContent = obj.following_url;
+  link.href = `${obj.html_url}`;
+  followers.textContent = `Followers ${obj.followers}`;
+  following.textContent = `Following ${obj.following}`;
   bio.textContent = obj.bio;
 
   
-  cardCreator.appendChild(followersArray);
+  // followersArray.appendChild(cardCreator);
   
   return card;
 }
