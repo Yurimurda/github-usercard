@@ -13,7 +13,6 @@ const followersArray = [
 
 
 axios.get('https://api.github.com/users/Yurimurda')
-// axios.get('https://api.github.com/users/Aaron-Fuller')
 .then(response => {
   console.log(response);
   const card = document.querySelector('.cards');
@@ -125,7 +124,7 @@ followersArray.forEach(Element =>{
 */
 
 function cardCreator (obj){
-  let card = document.createElement('div')
+  let card = document.createElement('div');
   let avatar = document.createElement('img');
   let info = document.createElement('div');
   let name = document.createElement('h3');
